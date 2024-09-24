@@ -1,0 +1,129 @@
+.chat-bot-app {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  background-color: #8992a5;
+  font-family: monospace ;
+}
+
+.chat-window {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.app-title{
+  margin: 0 auto;
+  padding-top: 10px;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+@keyframes chatAnimation {
+  0%  { left:0px; top:100px; }
+  100% { left:0px; top:0px; }
+}
+
+.message-container--user {
+  align-items: flex-end;
+  animation-name: chatAnimation;
+  animation-duration: 0.5s;
+  position:relative;
+}
+
+.message-container--bot {
+  align-items: flex-start;
+  white-space: pre-line;
+  animation-name: chatAnimation;
+  animation-duration: 0.5s;
+  position:relative;
+}
+
+.loadingComponent {
+  align-items: flex-start;
+  white-space: pre-line;
+}
+
+.message {
+  max-width: 60%;
+  padding: 10px 15px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.message--user {
+  background-color: #dcf8c6;
+  color: #333;
+}
+
+.message--bot {
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.chat-input {
+  display: flex;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+}
+
+.chat-input__field {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.chat-input__field:focus {
+  outline: none;
+}
+
+.chat-input__button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #25D366;
+  border: none;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.chat-input__button:hover {
+  background-color: #128C7E;
+}
+
+.generated-img{
+  width: 500px;
+  height: 500px;
+  border-radius: 5px;
+} 
+
+@media only screen and (max-width: 1908px) {
+  .generated-img {
+    width: 250px;
+    height: 250px;
+  }
+}
+
+@media only screen and (max-width: 395px) {
+  .generated-img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.imgPic{
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
