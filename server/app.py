@@ -24,24 +24,22 @@ def chatPrompt():
     data = request.get_json()
     prompt = data.get('prompt') 
     completion = client.chat.completions.create(
-    model="gpt-4o-mini",
-    messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
+        model="gpt-4o-mini",
+        messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
     )
     print(completion)
     return jsonify(completion.choices[0].message.content)
 
 @app.route('/image-generation/prompt', methods=['POST'])
 def imageGenerationPrompt():
-
     data = request.get_json()
     imgPrompt = data.get('imgPrompt')
-
     response = client.images.generate(
         model="dall-e-3",
         prompt = imgPrompt,
@@ -53,7 +51,6 @@ def imageGenerationPrompt():
     #jsondata = jsonify(response)
     print(response)
     image_url = response.data[0].url
-
     return jsonify(image_url)
 
 
