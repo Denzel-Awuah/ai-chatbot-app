@@ -1,30 +1,30 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classnames from "classnames";
 import "../App.css";
-import { LoadingComponent } from "./LoadingComponent";
+import { LoadingComponent } from "../Components/LoadingComponent";
 
-const ChatBotApp = () => {
+const ImageGenApp = () => {
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
+  const [newImagePrompt, setnewImagePrompt] = useState("");
   const [loading, setLoading] = useState(false);
 
   const messageScrollRef = useRef(null);
 
   useEffect(() => {
     if (messageScrollRef.current) {
-      messageScrollRef.current.scrollIntoView({behaviour: 'smooth'});
+      messageScrollRef.current.scrollIntoView({ behaviour: "smooth" });
     }
   }, [messages]);
 
   const sendMessage = async () => {
     try {
-      if (newMessage.trim()) {
+      if (newImagePrompt.trim()) {
         setMessages((prevMessages) => [
           ...prevMessages,
-          { sender: "user", text: newMessage },
+          { sender: "user", text: newImagePrompt },
         ]);
         setLoading(true);
-        setNewMessage("");
+        setnewImagePrompt("");
         const botData = await fetchChatResponse();
         setMessages((prevMessages) => [
           ...prevMessages,
@@ -41,13 +41,16 @@ const ChatBotApp = () => {
     //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
 
     try {
-      const botResponse = await fetch("http://localhost:5000/chatbot/prompt", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt: newMessage }),
-      });
+      const botResponse = await fetch(
+        "http://localhost:5000/image-generation/prompt",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ imgPrompt: newImagePrompt }),
+        }
+      );
 
       console.log("bot Response - " + botResponse);
 
@@ -64,7 +67,7 @@ const ChatBotApp = () => {
   return (
     <div className="chat-bot-app">
       <div className="app-title">
-        <h1>Chat with AI</h1>
+        <h1>Create new images using Dalle-3 API</h1>
       </div>
       <div className="chat-window">
         {messages.map((message, index) => (
@@ -86,9 +89,13 @@ const ChatBotApp = () => {
                 "message--bot": message.sender === "bot",
               })}
             >
-              {message.text}
+              {message.sender === "user" ? (
+                message.text
+              ) : (
+                <img src={message.text} className="generated-img" />
+              )}
             </div>
-            {index === messages.length - 1 ? <div className="ref" ref={messageScrollRef}/> : null}
+            {index === messages.length - 1 ? <div ref={messageScrollRef} /> : null}
           </div>
         ))}
         {loading && <LoadingComponent />}
@@ -96,8 +103,8 @@ const ChatBotApp = () => {
       <div className="chat-input">
         <input
           type="text"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
+          value={newImagePrompt}
+          onChange={(e) => setnewImagePrompt(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               sendMessage();
@@ -114,4 +121,4 @@ const ChatBotApp = () => {
   );
 };
 
-export default ChatBotApp;
+export default ImageGenApp;
