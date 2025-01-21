@@ -48,7 +48,6 @@ def imageGenerationPrompt():
         n=1,
     )
     
-    #jsondata = jsonify(response)
     print(response)
     image_url = response.data[0].url
     return jsonify(image_url)
