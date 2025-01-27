@@ -14,6 +14,7 @@ app.config.from_pyfile('settings.py')
 
 client = OpenAI()
 
+
 @app.route('/')
 def index():
     print(os.getenv('OPENAI_API_KEY'))
